@@ -40,3 +40,5 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 - Prisma
 - Zod (Data Validation)
 - Radix UI
+- react-simpleMDE
+- react hook form
