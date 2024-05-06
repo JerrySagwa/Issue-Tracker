@@ -1,7 +1,7 @@
-'use client'
+'use client';
 import ErrorMessage from '@/app/components/ErrorMessage';
 import Spinner from '@/app/components/Spinner';
-import { createIssueSchema } from '@/app/validationSchema';
+import { issueSchema } from '@/app/validationSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Issue } from '@prisma/client';
 import { Button, Callout, TextField } from '@radix-ui/themes';
@@ -10,19 +10,19 @@ import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import SimpleMDE from 'react-simplemde-editor';
-import "easymde/dist/easymde.min.css";
+import 'easymde/dist/easymde.min.css';
 import { z } from 'zod';
 
-type NewIssueForm = z.infer<typeof createIssueSchema>;
+type NewIssueForm = z.infer<typeof issueSchema>;
 
-const IssueForm = ({issue}: {issue?: Issue}) => {
+const IssueForm = ({ issue }: { issue?: Issue }) => {
   const {
     register,
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<NewIssueForm>({
-    resolver: zodResolver(createIssueSchema),
+    resolver: zodResolver(issueSchema),
   });
   const router = useRouter();
 
@@ -49,7 +49,11 @@ const IssueForm = ({issue}: {issue?: Issue}) => {
         </Callout.Root>
       )}
       <form className='max-w-xl space-y-4' onSubmit={handleSubmit(onSubmit)}>
-        <TextField.Root defaultValue={issue?.title} placeholder='Title' {...register('title')}>
+        <TextField.Root
+          defaultValue={issue?.title}
+          placeholder='Title'
+          {...register('title')}
+        >
           <TextField.Slot></TextField.Slot>
         </TextField.Root>
         {errors.title && <ErrorMessage>{errors.title?.message}</ErrorMessage>}
