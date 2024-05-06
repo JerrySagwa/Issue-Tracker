@@ -42,3 +42,4 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 - Radix UI
 - react-simpleMDE
 - react hook form (with zod resolver)
+- delay (help creating loading page)
