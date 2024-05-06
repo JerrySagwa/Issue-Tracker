@@ -5,7 +5,7 @@ import NextLink from 'next/link';
 const Link = ({ href, children }: { href: string; children: ReactNode }) => {
   return (
     <NextLink href={href} passHref legacyBehavior>
-      <RadixLink>{children}</RadixLink>
+      <RadixLink color='cyan' weight='medium' truncate size='4'>{children}</RadixLink>
     </NextLink>
   );
 };

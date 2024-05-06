@@ -41,6 +41,6 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 - Zod (Data Validation)
 - Radix UI
 - react-simpleMDE
-- react hook form (with zod resolver)
+- react hook form (with zod resolver) -- 
 - delay (help creating loading page)
 - tailwind typograph (beautiful typographic defaults)

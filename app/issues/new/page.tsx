@@ -14,7 +14,7 @@ import Spinner from '../../components/Spinner';
 
 type NewIssueForm = z.infer<typeof createIssueSchema>;
 
-const NewIssuePage = () => {
+const NewIssuePage = async () => {
   const {
     register,
     control,
@@ -39,6 +39,7 @@ const NewIssuePage = () => {
       setIsSubmitting(false);
     }
   };
+
   return (
     <div className='max-w-xl'>
       {error && (
