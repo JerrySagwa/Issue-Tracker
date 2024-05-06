@@ -44,3 +44,4 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 - react hook form (with zod resolver) -- 
 - delay (help creating loading page)
 - tailwind typograph (beautiful typographic defaults)
+- react-loading-skeleton 
