@@ -1,8 +1,8 @@
 import prisma from '@/prisma/client';
 import { Box, Grid } from '@radix-ui/themes';
 import { notFound } from 'next/navigation';
-import IssueDetail from '../../components/IssueDetail';
-import EditIssueButton from './EditIssueButton';
+import IssueDetail from '../components/IssueDetail';
+import EditIssueButton from '../components/EditIssueButton';
 
 type Props = {
   params: {
@@ -24,10 +24,10 @@ const IssueDetailPage = async ({ params: { id } }: Props) => {
   return (
     <Grid columns={{ initial: '1', md: '2' }} gap={'5'}>
       <Box>
-        <IssueDetail issue={issue}/>
+        <IssueDetail issue={issue} />
       </Box>
       <Box>
-        <EditIssueButton issueId={issue.id}/>        
+        <EditIssueButton issueId={issue.id} />
       </Box>
     </Grid>
   );

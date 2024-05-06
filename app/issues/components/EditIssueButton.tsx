@@ -1,4 +1,4 @@
-import { Button } from '@radix-ui/themes';
+import { Button, Flex } from '@radix-ui/themes';
 import Link from 'next/link';
 import React from 'react';
 import { BiPencil } from 'react-icons/bi';
@@ -6,8 +6,12 @@ import { BiPencil } from 'react-icons/bi';
 const EditIssueButton = ({ issueId }: { issueId: number }) => {
   return (
     <Button color='violet'>
-      <BiPencil />
-      <Link href={`/issues/${issueId}/edit`}>Edit Issue</Link>
+      <Link href={`/issues/${issueId}/edit`}>
+        <Flex gapX={'1'} align={'center'}>
+          <BiPencil className='inline-block' />
+          <span>Edit Issue</span>
+        </Flex>
+      </Link>
     </Button>
   );
 };
