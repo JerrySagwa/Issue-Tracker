@@ -45,3 +45,4 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 - delay (help creating loading page)
 - tailwind typograph (beautiful typographic defaults)
 - react-loading-skeleton 
+- Seperate of Concerns & Single Responsibility
