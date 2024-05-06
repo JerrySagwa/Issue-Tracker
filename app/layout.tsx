@@ -24,6 +24,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
+      <head>
+        <title>Issue Tracker</title>
+      </head>
       <body className={inter.variable}>
         <Theme accentColor='green' grayColor='sage' scaling='105%'>
           <NavBar />

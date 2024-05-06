@@ -31,6 +31,7 @@ const NewIssuePage = () => {
   const onSubmit: SubmitHandler<NewIssueForm> = async (data) => {
     try {
       setIsSubmitting(true);
+      // Seperate of Concerns ? little value in this case
       await axios.post('/api/issues', data);
       router.push('/issues');
     } catch (error) {
