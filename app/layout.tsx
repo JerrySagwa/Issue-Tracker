@@ -1,10 +1,11 @@
+import { Theme } from '@radix-ui/themes';
 import '@radix-ui/themes/styles.css';
-import './theme-config.css';
-import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { Container, Theme, ThemePanel } from '@radix-ui/themes';
 import NavBar from './NavBar';
+import './globals.css';
+import './theme-config.css';
+import Provider from './Provider';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -28,10 +29,12 @@ export default function RootLayout({
         <title>Issue Tracker</title>
       </head>
       <body className={inter.variable}>
-        <Theme accentColor='green' grayColor='sage' scaling='105%'>
-          <NavBar />
-          <main className='p-5'>{children}</main>
-        </Theme>
+        <Provider>
+          <Theme accentColor='green' grayColor='sage' scaling='105%'>
+            <NavBar />
+            <main className='p-5'>{children}</main>
+          </Theme>
+        </Provider>
       </body>
     </html>
   );
