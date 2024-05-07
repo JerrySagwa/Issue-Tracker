@@ -30,7 +30,7 @@ export default function RootLayout({
       <body className={inter.variable}>
         <Theme accentColor='green' grayColor='sage' scaling='105%'>
           <NavBar />
-            <main className='p-5'>{children}</main>
+          <main className='p-5'>{children}</main>
         </Theme>
       </body>
     </html>
