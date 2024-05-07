@@ -1,5 +1,7 @@
 import 'easymde/dist/easymde.min.css';
-import IssueForm from '../components/IssueForm';
+import dynamic from 'next/dynamic'
+
+const IssueForm = dynamic(() => import('../components/IssueForm'), {ssr: false});
 
 const NewIssuePage = () => {
   return (

@@ -1,4 +1,4 @@
-'use client';
+'use client'
 import ErrorMessage from '@/app/components/ErrorMessage';
 import Spinner from '@/app/components/Spinner';
 import { issueSchema } from '@/app/validationSchema';
@@ -9,9 +9,12 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import SimpleMDE from 'react-simplemde-editor';
 import 'easymde/dist/easymde.min.css';
 import { z } from 'zod';
+import SimpleMDE from 'react-simplemde-editor'
+
+// not render simpleMDE on the server -- since it has api only works on client
+// const SimpleMDE = dynamic(() => import('react-simplemde-editor'), {ssr: false});
 
 type NewIssueForm = z.infer<typeof issueSchema>;
 
@@ -39,6 +42,7 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
         await axios.post('/api/issues', data);
       }
       router.push('/issues');
+      router.refresh();
     } catch (error) {
       setError('Invalid input of title or description!');
       setIsSubmitting(false);

@@ -9,7 +9,7 @@ const EditIssueButton = ({ issueId }: { issueId: number }) => {
       <Link href={`/issues/${issueId}/edit`}>
         <Flex gapX={'1'} align={'center'}>
           <BiPencil className='inline-block' />
-          <span>Edit Issue</span>
+          <span>Edit</span>
         </Flex>
       </Link>
     </Button>
