@@ -32,8 +32,12 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
   const onSubmit: SubmitHandler<NewIssueForm> = async (data) => {
     try {
       setIsSubmitting(true);
-      // Seperate of Concerns ? little value in this case
-      await axios.post('/api/issues', data);
+      if (issue) {
+        await axios.patch(`/api/issues/${issue.id}`, data);
+      } else {
+        // Seperate of Concerns ? little value in this case
+        await axios.post('/api/issues', data);
+      }
       router.push('/issues');
     } catch (error) {
       setError('Invalid input of title or description!');
