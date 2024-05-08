@@ -1,22 +1,34 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { issueSchema } from '../../../validationSchema';
 import prisma from '@/prisma/client';
-import delay from 'delay';
 import { getServerSession } from 'next-auth';
+import { NextRequest, NextResponse } from 'next/server';
+import { patchIssueSchema } from '../../../validationSchema';
 import { authOptions } from '../../auth/[...nextauth]/route';
+import { log } from 'console';
 
 export async function PATCH(
   req: NextRequest,
   { params: { id } }: { params: { id: string } }
 ) {
-  const session = await getServerSession(authOptions);
+  // const session = await getServerSession(authOptions);
+  // if (!session)
+  //   // unauthorized
+  //   return NextResponse.json({}, { status: 401 });
 
-  if (!session)
-    // unauthorized
-    return NextResponse.json({}, { status: 401 });
   const body = await req.json();
 
-  const result = await issueSchema.safeParse(body);
+  const {title, description, assignedToUserEmail} = body;
+
+  const user = prisma.emailUser.findUnique({
+    where: {
+      email: assignedToUserEmail  
+    }
+  })
+
+  if (!user) {
+    return NextResponse.json('user not found', {status: 404});
+  }
+
+  const result = patchIssueSchema.safeParse(body);
 
   if (!result.success) {
     return NextResponse.json(result.error.errors, { status: 400 });
@@ -27,8 +39,9 @@ export async function PATCH(
       id: parseInt(id),
     },
     data: {
-      title: body.title,
-      description: body.description,
+      title,
+      description,
+      assignedToUserEmail
     },
   });
 
