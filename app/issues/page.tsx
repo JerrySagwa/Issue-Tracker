@@ -3,13 +3,17 @@ import prisma from '../../prisma/client';
 import IssueStatusBadge from './components/IssueStatusBadge';
 import Link from '../components/Link';
 import IssueAction from './IssueAction';
+import IssueStatusFilter from './components/IssueStatusFilter';
 
 const IssuesPage = async () => {
   const issues = await prisma.issue.findMany();
 
   return (
     <div>
-      <IssueAction />
+      <div className='flex justify-between'>
+        <IssueStatusFilter />
+        <IssueAction />
+      </div>
       <Table.Root variant='surface'>
         <Table.Header>
           <Table.Row>
@@ -47,5 +51,5 @@ const IssuesPage = async () => {
     </div>
   );
 };
-export const dynamic = 'force-dynamic' // opt out static rendering
+export const dynamic = 'force-dynamic'; // opt out static rendering
 export default IssuesPage;

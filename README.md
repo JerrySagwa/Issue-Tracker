@@ -29,3 +29,5 @@
 - NextAuth
 
 - React Query
+
+- react-hot-toast Notification
