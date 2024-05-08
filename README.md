@@ -27,3 +27,5 @@
     ```
 
 - NextAuth
+
+- React Query

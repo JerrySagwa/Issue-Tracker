@@ -5,7 +5,7 @@ import { Inter } from 'next/font/google';
 import NavBar from './NavBar';
 import './globals.css';
 import './theme-config.css';
-import Provider from './Provider';
+import { SessionProvider, QueryProvider } from './Provider';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -29,12 +29,14 @@ export default function RootLayout({
         <title>Issue Tracker</title>
       </head>
       <body className={inter.variable}>
-        <Provider>
-          <Theme accentColor='green' grayColor='sage' scaling='105%'>
-            <NavBar />
-            <main className='p-5'>{children}</main>
-          </Theme>
-        </Provider>
+        <SessionProvider>
+          <QueryProvider>
+            <Theme accentColor='green' grayColor='sage' scaling='105%'>
+              <NavBar />
+              <main className='p-5'>{children}</main>
+            </Theme>
+          </QueryProvider>
+        </SessionProvider>
       </body>
     </html>
   );
