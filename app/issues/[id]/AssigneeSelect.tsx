@@ -25,17 +25,6 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
 
   if (error) return null;
   if (isLoading) return <Skeleton />;
-  // const [users, setUsers] = useState<User[]>([]);
-
-  // useEffect(() => {
-  //   const fetchUsers = async () => {
-  //     const { data } = await axios.get<User[]>('/api/emailusers');
-
-  //     setUsers(data);
-  //   };
-
-  //   fetchUsers();
-  // }, []);
 
   const assignIssue = (value: string) => {
     axios

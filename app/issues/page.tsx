@@ -1,17 +1,22 @@
+import prisma from '@/prisma/client';
 import { Table } from '@radix-ui/themes';
-import prisma from '../../prisma/client';
-import IssueStatusBadge from './components/IssueStatusBadge';
 import Link from '../components/Link';
 import IssueAction from './IssueAction';
+import IssueStatusBadge from './components/IssueStatusBadge';
 import IssueStatusFilter from './components/IssueStatusFilter';
 
-const IssuesPage = async () => {
+const IssuesPage = async ({searchParams: {filteredBy}}: {searchParams: {filteredBy: string}}) => {
   const issues = await prisma.issue.findMany();
+
+  const filterIssues =
+    filteredBy === 'ALL'
+      ? issues
+      : issues.filter((issue) => issue.status === filteredBy);
 
   return (
     <div>
       <div className='flex justify-between'>
-        <IssueStatusFilter />
+        <IssueStatusFilter/>
         <IssueAction />
       </div>
       <Table.Root variant='surface'>
@@ -28,7 +33,7 @@ const IssuesPage = async () => {
         </Table.Header>
 
         <Table.Body>
-          {issues.map((issue) => (
+          {filterIssues.map((issue) => (
             <Table.Row key={issue.id}>
               <Table.RowHeaderCell>
                 <Link href={`/issues/${issue.id}`}>
