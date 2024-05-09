@@ -9,7 +9,7 @@ const IssuesPage = async ({searchParams: {filteredBy}}: {searchParams: {filtered
   const issues = await prisma.issue.findMany();
 
   const filterIssues =
-    filteredBy === 'ALL'
+    (filteredBy === 'ALL' || filteredBy === undefined)
       ? issues
       : issues.filter((issue) => issue.status === filteredBy);
 
