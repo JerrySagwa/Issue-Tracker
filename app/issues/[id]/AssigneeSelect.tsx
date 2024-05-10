@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Skeleton from 'react-loading-skeleton';
 import toast, { Toaster } from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 type User = {
   name: string;
@@ -26,6 +27,8 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
   if (error) return null;
   if (isLoading) return <Skeleton />;
 
+  const router = useRouter();
+
   const assignIssue = (value: string) => {
     axios
       .patch(`/api/issues/${issue.id}`, {
@@ -37,6 +40,7 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
       .catch(() => {
         toast.error('Your update cannot be saved!');
       });
+      router.refresh();
   };
 
   return (
