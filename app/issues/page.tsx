@@ -1,58 +1,48 @@
 import prisma from '@/prisma/client';
-import { Table } from '@radix-ui/themes';
-import Link from '../components/Link';
+import { Status } from '@prisma/client';
+import Pagination from '../components/Pagination';
 import IssueAction from './IssueAction';
-import IssueStatusBadge from './components/IssueStatusBadge';
 import IssueStatusFilter from './components/IssueStatusFilter';
+import IssueTable from './components/IssueTable';
 
-const IssuesPage = async ({searchParams: {filteredBy}}: {searchParams: {filteredBy: string}}) => {
-  const issues = await prisma.issue.findMany();
+const IssuesPage = async ({
+  searchParams: { filteredBy, page },
+}: {
+  searchParams: {
+    filteredBy: Status | 'ALL' | undefined;
+    page: string | undefined;
+  };
+}) => {
+  if (filteredBy === 'ALL') filteredBy = undefined;
 
-  const filterIssues =
-    (filteredBy === 'ALL' || filteredBy === undefined)
-      ? issues
-      : issues.filter((issue) => issue.status === filteredBy);
+  const where = {
+    status: filteredBy,
+  };
+
+  let issues = await prisma.issue.findMany({
+    where,
+  });
+
+  const pageSize = 10;
+  const pageNumber = page === undefined ? 1 : parseInt(page);
+  const itemCount = issues.length;
+  issues = issues.splice((pageNumber - 1) * pageSize, pageSize);
+  // console.log(`ps: ${pageSize}, pn: ${pageNumber}, ic: ${itemCount}`);
 
   return (
-    <div>
+    <div className='flex flex-col gap-y-3'>
       <div className='flex justify-between'>
-        <IssueStatusFilter/>
+        <IssueStatusFilter />
         <IssueAction />
       </div>
-      <Table.Root variant='surface'>
-        <Table.Header>
-          <Table.Row>
-            <Table.ColumnHeaderCell>Issue</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell className='hidden md:table-cell'>
-              Status
-            </Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell className='hidden md:table-cell'>
-              Created At
-            </Table.ColumnHeaderCell>
-          </Table.Row>
-        </Table.Header>
-
-        <Table.Body>
-          {filterIssues.map((issue) => (
-            <Table.Row key={issue.id}>
-              <Table.RowHeaderCell>
-                <Link href={`/issues/${issue.id}`}>
-                  <span className='capitalize'>{issue.title}</span>
-                </Link>
-                <div className='block md:hidden'>
-                  <IssueStatusBadge status={issue.status} />
-                </div>
-              </Table.RowHeaderCell>
-              <Table.Cell className='hidden md:table-cell'>
-                <IssueStatusBadge status={issue.status} />
-              </Table.Cell>
-              <Table.Cell className='hidden md:table-cell'>
-                {issue.createdAt.toDateString()}
-              </Table.Cell>
-            </Table.Row>
-          ))}
-        </Table.Body>
-      </Table.Root>
+      <IssueTable issues={issues} />
+      <div className='flex justify-center'>
+        <Pagination
+          currentPage={pageNumber}
+          pageSize={pageSize}
+          itemCount={itemCount}
+        />
+      </div>
     </div>
   );
 };
