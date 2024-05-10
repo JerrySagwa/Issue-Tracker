@@ -10,18 +10,6 @@ export const authConfig: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   // Configure one or more authentication providers
   providers: [
-    // ...add more providers here
-    GoogleProvider({
-      clientId: process.env.GOOGLR_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-      httpOptions: {
-        timeout: 10000,
-      },
-    }),
-    GitHubProvider({
-      clientId: process.env.GITHUB_ID!,
-      clientSecret: process.env.GITHUB_SECRET!,
-    }),
     CredentialsProvider({
       name: 'Email',
       credentials: {

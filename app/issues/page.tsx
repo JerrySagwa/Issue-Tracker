@@ -4,6 +4,7 @@ import Pagination from '../components/Pagination';
 import IssueAction from './IssueAction';
 import IssueStatusFilter from './components/IssueStatusFilter';
 import IssueTable from './components/IssueTable';
+import { Metadata } from 'next';
 
 const IssuesPage = async ({
   searchParams: { filteredBy, page },
@@ -48,3 +49,8 @@ const IssuesPage = async ({
 };
 export const dynamic = 'force-dynamic'; // opt out static rendering
 export default IssuesPage;
+
+export const metadata: Metadata = {
+  title: "Issue Tracker - Issue List",
+  description: "List of All the issues"
+}
