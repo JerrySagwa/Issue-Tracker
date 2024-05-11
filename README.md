@@ -31,3 +31,5 @@
 - React Query
 
 - react-hot-toast Notification
+
+-react cache -- issue detail page performance
